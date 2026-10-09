@@ -18,6 +18,15 @@ const priorityClass = computed(() => {
   }
 })
 
+ const priorityLabel = computed(() => {
+  const priorities = {
+    high: 'Haute',
+    medium: 'Moyenne',
+    low: 'Basse'
+  }
+  return priorities[props.ticket.priority] || props.ticket.priority
+})
+
 const statusLabel = computed(() => {
   const statuses = {
     open: 'Ouvert',
@@ -33,7 +42,7 @@ const statusLabel = computed(() => {
     <div class="ticket-header">
       <h3>{{ ticket.title }}</h3>
       <span class="badge" :class="priorityClass">
-        {{ ticket.priority }}
+        {{ priorityLabel }}
       </span>
     </div>
     
@@ -41,7 +50,6 @@ const statusLabel = computed(() => {
     
     <div class="ticket-footer">
       <span class="status">Statut: <strong>{{ statusLabel }}</strong></span>
-      <!-- Navigation vers la vue détaillée demandée par le TP -->
       <router-link :to="`/ticket/${ticket.id}`" class="btn-detail">Voir détails</router-link>
     </div>
   </div>
@@ -73,6 +81,8 @@ const statusLabel = computed(() => {
 .ticket-header h3 {
   margin: 0;
   color: #2c3e50;
+  flex: 1;
+  padding-right: 1rem;
 }
 
 .badge {
@@ -81,9 +91,9 @@ const statusLabel = computed(() => {
   font-size: 0.85rem;
   font-weight: bold;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-/* Les couleurs dynamiques pour les priorités */
 .priority-high { background-color: #fee2e2; color: #dc2626; }
 .priority-medium { background-color: #fef3c7; color: #d97706; }
 .priority-low { background-color: #dcfce7; color: #16a34a; }

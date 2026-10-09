@@ -16,7 +16,7 @@ export async function fetchTickets(page = 1, status = '', priority = '', title =
     
     const data = await response.json();
     
-    const ticketsData = Array.isArray(data) ? data : (data.tickets || data.items || data['hydra:member'] || []);
+    const ticketsData = Array.isArray(data) ? data : (data.member || data['hydra:member'] || data.tickets || data.items || []);
     
     return ticketsData.map(ticket => new TicketDTO(ticket));
   } catch (error) {
